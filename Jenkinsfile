@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Clean') {
+        stage('Checkout from SCM') {
             steps {
                 echo 'Cleaning repo'
             }
