@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     stages {
-        stage('Clean') {
+        stage('Chekout from git SCM') {
             steps {
-                echo 'Cleaning repo'
+                
             }
         }
     }
