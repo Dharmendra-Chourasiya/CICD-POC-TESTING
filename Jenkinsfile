@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    environment{
+    SCANNER_HOME= tool 'sonar-scanner'
+    }
 
     stages {
         stage('Checkout from SCM') {
@@ -11,6 +14,20 @@ pipeline {
         stage('mvn clean') {
             steps {
                 sh 'mvn clean compile'
+            }
+        }
+
+        stage('SONARQUBE ANALYSIS') {
+            steps {
+                withSonarQubeEnv('sonar') {
+                    sh " $SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Bank -Dsonar.projectKey=Bank "
+                }
+            }
+        }
+        
+        stage('Build & Test') {
+            steps {
+                sh 'mvn clean package'
             }
         }
         
